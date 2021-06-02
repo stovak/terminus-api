@@ -1,0 +1,115 @@
+{
+  "name": "pantheon-systems/terminus-api",
+  "description": "An API for interacting with the Pantheon platform",
+  "keywords": [
+    "api",
+    "pantheon",
+    "terminus",
+    "drupal",
+    "wordpress"
+  ],
+  "homepage": "https://pantheon.io",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=7.4",
+    "ext-json": "*",
+    "cache/filesystem-adapter": "^1.1",
+    "clue/phar-composer": "^1.2",
+    "composer/composer": "^2",
+    "composer/semver": "^3.2.1",
+    "consolidation/robo": "^3.0",
+    "guzzlehttp/guzzle": "^7.3",
+    "guzzlehttp/psr7": "^1.8",
+    "jane-php/json-schema-runtime": "~6.3.0",
+    "jane-php/open-api-runtime": "~6.3.0",
+    "laminas/laminas-diactoros": "^2.6",
+    "php-http/cache-plugin": "^1.7",
+    "php-http/curl-client": "^2.2",
+    "php-http/discovery": "^1.14",
+    "php-http/message": "^1.11",
+    "symfony/yaml": "^5",
+    "tm/tooly-composer-script": "^1.4"
+  },
+  "require-dev": {
+    "canvural/php-openapi-faker": "^0.1.4",
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "jane-php/json-schema": "~6.3.0",
+    "jane-php/open-api-3": "~6.3.0",
+    "kint-php/kint": "^3.3",
+    "phpunit/phpunit": "^9",
+    "psy/psysh": "^0.10.8",
+    "squizlabs/php_codesniffer": "^3.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pantheon\\Terminus\\API\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pantheon\\Terminus\\API\\Scripts\\": "scripts/",
+      "Pantheon\\Terminus\\API\\Tests\\Unit\\": "tests/unit/"
+    }
+  },
+  "scripts": {
+    "docs": "php scripts/make-docs.php",
+    "generate": [
+      "node_modules/@airtasker/spot/bin/run generate --contract=./api.ts --generator=openapi3 --language=yaml --out=./openapi",
+      "node_modules/@airtasker/spot/bin/run generate --contract=./api.ts --generator=openapi3 --language=json --out=./openapi",
+      "vendor/bin/jane-openapi generate"
+    ],
+    "post-update-cmd": [
+      "Tooly\\ScriptHandler::installPharTools",
+      "scripts/setup-precommit.sh",
+      "npm update"
+    ],
+    "post-install-cmd": [
+      "Tooly\\ScriptHandler::installPharTools",
+      "scripts/setup-precommit.sh",
+      "npm install"
+    ],
+    "code:fix": [
+      "phpcbf -q --standard=psr2 src"
+    ],
+    "code:lint": [
+      "vendor/bin/phpcs --standard=psr2 src"
+    ],
+    "pre-commit": [
+      "composer validate --strict",
+      "composer update -W",
+      "git add composer.json composer.lock",
+      "@code:fix",
+      "@code:lint"
+    ]
+  },
+  "suggest": {
+    "ext-zip": "Enabling the zip extension allows you to unzip archives",
+    "ext-zlib": "Allow gzip compression of HTTP requests",
+    "ext-yaml": "Native parsing of Yaml can speed a drupal install up to 5%"
+  },
+  "config": {
+    "process-timeout": 3600,
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "platform": {
+      "php": "7.4.0"
+    }
+  },
+  "extra": {
+    "version": "3.0.0",
+    "branch-alias": {
+      "dev-master": "3.x-dev"
+    },
+    "symfony": {
+      "allow-contrib": "true"
+    },
+    "tools": {
+      "robo": {
+        "url": "https://robo.li/robo.phar"
+      }
+    }
+  }
+}

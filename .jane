@@ -1,0 +1,8 @@
+<?php
+
+return [
+    'json-schema-file' => __DIR__ . '/openapi/SiteInfoRequestResponse.schema.json',
+    'root-class' => 'SiteInfoResponse',
+    'namespace' => 'Pantheon\Terminus\Api',
+    'directory' => __DIR__ . '/src',
+];

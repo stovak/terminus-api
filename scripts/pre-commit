@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+$project = dirname(dirname(dirname(__DIR__)));
+
+$staged_php_files = `git diff --name-only --diff-filter=ACMR HEAD | grep \\\\.php`;
+
+echo "Simple PHP Syntax check for changed files...\n";
+if (is_array($staged_php_files) && count($staged_php_files)) {
+    foreach ($staged_php_files as $file) {
+        exec(
+            sprinf('php -l -d display_errors=0 %s/%s', $project, $file),
+            $result,
+            $status
+        );
+        if ($status !== 0) {
+            echo "Fix the error before commit.";
+            exit(1);
+        }
+    }
+}
+
+
+exit(0);

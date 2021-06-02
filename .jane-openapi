@@ -1,0 +1,7 @@
+<?php
+
+return [
+    'openapi-file' => __DIR__ . '/openapi/api.json',
+    'namespace' => 'Pantheon\Terminus\API',
+    'directory' => __DIR__ . '/src',
+];

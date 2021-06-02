@@ -1,0 +1,586 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "terminus-api",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/api/authorize/machine-token": {
+      "post": {
+        "operationId": "Auth",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "string"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthMachineToken"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMachineTokenResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sites/{site_id}": {
+      "get": {
+        "description": "Site Info",
+        "operationId": "Site",
+        "parameters": [
+          {
+            "name": "site_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteInfoResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/site-names/{site_name}": {
+      "get": {
+        "tags": [
+          "Sites"
+        ],
+        "description": "Site Names",
+        "operationId": "SiteName",
+        "parameters": [
+          {
+            "name": "site_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteNameResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sites/{site_id}/environments/{env_id}": {
+      "get": {
+        "tags": [
+          "Environments",
+          "Sites"
+        ],
+        "description": "Site Environments",
+        "operationId": "SiteEnvironments",
+        "parameters": [
+          {
+            "name": "site_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "env_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteEnvironmentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sites/{site_id}/workflows": {
+      "get": {
+        "tags": [
+          "Sites",
+          "Workflows"
+        ],
+        "description": "Site Workflows",
+        "operationId": "SiteWorkflows",
+        "parameters": [
+          {
+            "name": "site_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteWorkflowResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{user_id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "User",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfoResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{user_id}/memberships/sites": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "UserMembershipSites",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserMembershipSiteResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{user_id}/workflows": {
+      "get": {
+        "tags": [
+          "Users",
+          "Workflows"
+        ],
+        "operationId": "UserWorkflows",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserWorkflowResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuthMachineToken": {
+        "type": "object",
+        "properties": {
+          "machine_token": {
+            "type": "string"
+          },
+          "client": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "machine_token",
+          "client"
+        ]
+      },
+      "AuthMachineTokenResponse": {
+        "type": "object",
+        "properties": {
+          "session": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "user_id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "session",
+          "expires_at",
+          "user_id"
+        ]
+      },
+      "SiteInfoResponse": {
+        "type": "object"
+      },
+      "SiteNameResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "SiteEnvironmentResponse": {
+        "type": "object"
+      },
+      "SiteWorkflowResponse": {
+        "type": "object"
+      },
+      "UserProfileResponse": {
+        "type": "object",
+        "properties": {
+          "invites_to_nonuser": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "devsites": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "registration_context": {
+            "type": "string",
+            "nullable": true
+          },
+          "full_name": {
+            "type": "string"
+          },
+          "pullFromLive": {
+            "type": "boolean"
+          },
+          "initial_identity_strategy": {
+            "type": "string",
+            "nullable": true
+          },
+          "tracking_first_site_create": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tracking_first_code_push": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "opt_in_new_dashboard": {
+            "type": "boolean"
+          },
+          "job_function": {
+            "type": "string"
+          },
+          "tracking_first_workflow_in_live": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tracking_first_team_invite": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "invites_to_site": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "copyCodeUpdatePhp": {
+            "type": "boolean"
+          },
+          "google_adwords_pushed_code_sent": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "web_services_business": {
+            "type": "boolean"
+          },
+          "initial_identity_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "copyCodeClearCache": {
+            "type": "boolean"
+          },
+          "guilty_of_abuse": {
+            "type": "string",
+            "nullable": true
+          },
+          "invites_sent": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minimize_jit_docs": {
+            "type": "boolean"
+          },
+          "modified": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "activity_level": {
+            "type": "string"
+          },
+          "maxdevsites": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "organization": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "invites_to_nonuser",
+          "devsites",
+          "registration_context",
+          "full_name",
+          "pullFromLive",
+          "initial_identity_strategy",
+          "tracking_first_site_create",
+          "tracking_first_code_push",
+          "opt_in_new_dashboard",
+          "job_function",
+          "tracking_first_workflow_in_live",
+          "tracking_first_team_invite",
+          "firstname",
+          "invites_to_site",
+          "lastname",
+          "copyCodeUpdatePhp",
+          "google_adwords_pushed_code_sent",
+          "web_services_business",
+          "initial_identity_name",
+          "copyCodeClearCache",
+          "guilty_of_abuse",
+          "invites_sent",
+          "minimize_jit_docs",
+          "modified",
+          "activity_level",
+          "maxdevsites",
+          "organization"
+        ]
+      },
+      "UserInfoResponse": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "$ref": "#/components/schemas/UserProfileResponse"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "auth0_user_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "profile",
+          "user_id",
+          "auth0_user_id",
+          "created_at",
+          "email"
+        ]
+      },
+      "UserMembershipSiteResponse": {
+        "type": "object"
+      },
+      "UserWorkflowResponse": {
+        "type": "object"
+      }
+    }
+  }
+}
