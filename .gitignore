@@ -10,7 +10,7 @@
 .idea
 .vagrant
 Vagrantfile
-src/*
+src/Generated/*
 *.cache
 .*.cache
 /.php-cs-fixer.cache
