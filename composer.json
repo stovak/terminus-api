@@ -19,6 +19,7 @@
     "clue/phar-composer": "^1.2",
     "composer/composer": "^2",
     "composer/semver": "^3.2.1",
+    "consolidation/annotated-command": "^4.2",
     "consolidation/robo": "^3.0",
     "guzzlehttp/guzzle": "^7.3",
     "guzzlehttp/psr7": "^1.8",
@@ -55,6 +56,7 @@
   },
   "scripts": {
     "docs": "php scripts/make-docs.php",
+    "phar:build": "vendor/bin/box compile",
     "generate": [
       "node_modules/@airtasker/spot/bin/run generate --contract=./api.ts --generator=openapi3 --language=yaml --out=./openapi",
       "node_modules/@airtasker/spot/bin/run generate --contract=./api.ts --generator=openapi3 --language=json --out=./openapi",
@@ -109,6 +111,9 @@
     "tools": {
       "robo": {
         "url": "https://robo.li/robo.phar"
+      },
+      "box": {
+        "url": "https://github.com/humbug/box/releases/download/3.0.0/box.phar"
       }
     }
   }
