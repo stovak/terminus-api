@@ -26,7 +26,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthMachineTokenResponse'
+                $ref: '#/components/schemas/Session'
   /api/sites/{site_id}:
     get:
       description: Site Info
@@ -232,7 +232,7 @@ components:
       required:
         - machine_token
         - client
-    AuthMachineTokenResponse:
+    Session:
       type: object
       properties:
         session:
@@ -241,8 +241,7 @@ components:
           type: integer
           format: int64
         user_id:
-          type: integer
-          format: int64
+          type: string
       required:
         - session
         - expires_at

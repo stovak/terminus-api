@@ -18,7 +18,7 @@ export class Auth {
 
     @response({ status: 200 })
     successfulResponse(
-        @body body: AuthMachineTokenResponse
+        @body body: Session
     ) {}
 }
 
@@ -27,8 +27,8 @@ export interface AuthMachineToken {
     client: String;
 }
 
-export interface AuthMachineTokenResponse {
+export interface Session {
     session: String;
     expires_at: Int64;
-    user_id: Int64;
+    user_id: String;
 }

@@ -73,10 +73,10 @@
       "npm install"
     ],
     "code:fix": [
-      "phpcbf -q --standard=psr2 src"
+      "phpcbf -q --standard=psr2 --ignore=src/Generated src "
     ],
     "code:lint": [
-      "vendor/bin/phpcs --standard=psr2 src"
+      "vendor/bin/phpcs --standard=psr2 --ignore=src/Generated src"
     ],
     "pre-commit": [
       "composer validate --strict",

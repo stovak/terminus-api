@@ -19,5 +19,6 @@ if (is_array($staged_php_files) && count($staged_php_files)) {
     }
 }
 
+exec("composer pre-commit", $result, $status);
 
-exit(0);
+exit($status);
